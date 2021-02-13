@@ -6,7 +6,7 @@ using NETAPI.Entities;
 
 namespace NETAPI.Repositories
 {
-    public class InMemItemsRepository
+    public class InMemItemsRepository : IItemsRepository
     {
         private readonly List<Item> _items = new()
         {
