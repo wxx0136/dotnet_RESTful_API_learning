@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NETAPI.Entities;
 
 namespace NETAPI.Repositories
@@ -14,32 +15,35 @@ namespace NETAPI.Repositories
             new Item {Id = Guid.NewGuid(), Name = "Bronze Shield", Price = 18, CreateDate = DateTimeOffset.UtcNow}
         };
 
-        public IEnumerable<Item> GetItems()
+        public async Task<IEnumerable<Item>> GetItemsAsync()
         {
-            return _items;
+            return await Task.FromResult(_items);
         }
 
-        public Item GetItem(Guid id)
+        public async Task<Item> GetItemAsync(Guid id)
         {
-            return _items.SingleOrDefault(item => item.Id == id);
+            return await Task.FromResult(_items.SingleOrDefault(item => item.Id == id));
 
         }
 
-        public void CreateItem(Item item)
+        public async Task CreateItemAsync(Item item)
         {
             _items.Add(item);
+            await Task.CompletedTask;
         }
 
-        public void UpdateItem(Item item)
+        public async Task UpdateItemAsync(Item item)
         {
             var index = _items.FindIndex(existingItem => existingItem.Id == item.Id);
             _items[index] = item;
+            await Task.CompletedTask;
         }
 
-        public void DeleteItem(Guid id)
+        public async Task DeleteItemAsync(Guid id)
         {
             var index = _items.FindIndex(existingItem => existingItem.Id == id);
             _items.Remove(_items[index]);
+            await Task.CompletedTask;
         }
     }
 }
