@@ -9,8 +9,8 @@ namespace NETAPI.Repositories
 {
     public class MongoDbItemsRepositories : IItemsRepository
     {
-
-        // config a docker image locally:  docker run -d --rm --name mongo -p 27017:27017 -v mongodbdata:/data/db mongo
+        // docker run -d --name mongo -p 27017:27017 -v mongodbdata:/data/db -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=password --network=net5tutorial mongo
+        // docker run -it --name netapi -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:User=mongoadmin -e MongoDbSettings:Password=password --network=net5tutorial netapi
         private const string DatabaseName = "catalog";
         private const string CollectionName = "items";
         private readonly IMongoCollection<Item> _itemsCollection;

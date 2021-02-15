@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace NETAPI.Settings
+﻿namespace NETAPI.Settings
 {
     public class MongoDbSettings
     {
