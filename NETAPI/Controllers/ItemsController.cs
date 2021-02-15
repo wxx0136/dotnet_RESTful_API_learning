@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NETAPI.Dtos;
 using NETAPI.Entities;
 using NETAPI.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace NETAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace NETAPI.Controllers
     public class ItemsController : ControllerBase
     {
         private readonly IItemsRepository _repository;
+        private readonly ILogger<ItemsController> _logger;
 
-        public ItemsController(IItemsRepository repository)
+        public ItemsController(IItemsRepository repository, ILogger<ItemsController> logger)
         {
-            this._repository = repository;
+            _repository = repository;
+            _logger = logger;
         }
 
         // GET /items
@@ -26,6 +29,8 @@ namespace NETAPI.Controllers
         {
             var items = (await _repository.GetItemsAsync())
                 .Select(item => item.AsDto());
+            _logger.LogInformation($"{DateTime.UtcNow:hh:mm:ss}: Retrieved {items.Count()} items.");
+
             return items;
         }
 
